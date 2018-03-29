@@ -30,6 +30,11 @@ if [[ ! -e "$BUILD_DIR/www" ]]; then
   [[ -f "$BUILD_DIR/www/nginx.conf.erb" ]] && mv $BUILD_DIR/www/nginx.conf.erb $BUILD_DIR
   [[ -f "$BUILD_DIR/www/mime.types" ]] && mv $BUILD_DIR/www/mime.types $BUILD_DIR
   [[ -f "$BUILD_DIR/www/CHECKS" ]] && mv $BUILD_DIR/www/CHECKS $BUILD_DIR
+
+  [[ -e "$BUILD_DIR/www/hidden_files" ]] &&
+      [[ $(ls -a "$BUILD_DIR/www/hidden_files" | wc -l) -gt 2 ]] &&
+      mv $BUILD_DIR/www/hidden_files/.[^.]* $BUILD_DIR/www/
+
   rm -rf $CACHE_DIR/www
 fi
 
